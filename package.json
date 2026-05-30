@@ -1,0 +1,25 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Simple weather frontend + backend",
+  "homepage": "https://github.com/benvillalobos1/Weather-App#readme",
+  "bugs": {
+    "url": "https://github.com/benvillalobos1/Weather-App/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benvillalobos1/Weather-App.git"
+  },
+  "license": "ISC",
+  "author": "Ben Villalobos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node Backend/app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}
