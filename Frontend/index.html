@@ -15,10 +15,22 @@
             margin: 0;
             padding: 0;
             height: 100vh;
+            display: block;
+            background: linear-gradient(135deg, #1e3c72, #aab4c6);
+        }
+
+        .main-wrapper {
             display: flex;
             justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #1e3c72, #aab4c6);
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        #no-exist {
+            color: white;
+            font-size: 25px;
+            text-align: center;
         }
 
         .container {
@@ -128,29 +140,32 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Weather App</h1>
-        <input id="city" type="text" placeholder="City">
-        <input id="state" type="text" placeholder="State">
-        <button id="submit" onclick="getWeather()">Submit</button>
-    </div>
-    <div class="results hidden" id="results">
-        <h2 id="location-display"></h1>
-
-        <div class="weather-row">
-            <div class="weather-label">
-                <img src="icons/temperature.svg" class="weather-icon" alt="temp icon">
-                Temperature
-            </div>
-            <div id="temp" class="weather-value"></div>
+    <h1 id="no-exist" class="hidden">Sorry, that location could not be found.</h1>
+    <div class="main-wrapper">
+        <div class="container">
+            <h1>Weather App</h1>
+            <input id="city" type="text" placeholder="City">
+            <input id="state" type="text" placeholder="State">
+            <button id="submit" onclick="getWeather()">Submit</button>
         </div>
+        <div class="results hidden" id="results">
+            <h2 id="location-display"></h1>
 
-        <div class="weather-row">
-            <div class="weather-label">
-                <img src="icons/wind.svg" class="weather-icon" alt="wind icon">
-                Wind Speed
+            <div class="weather-row">
+                <div class="weather-label">
+                    <img src="icons/temperature.svg" class="weather-icon" alt="temp icon">
+                    Temperature
+                </div>
+                <div id="temp" class="weather-value"></div>
             </div>
-            <div id="wind" class="weather-value"></div>
+
+            <div class="weather-row">
+                <div class="weather-label">
+                    <img src="icons/wind.svg" class="weather-icon" alt="wind icon">
+                    Wind Speed
+                </div>
+                <div id="wind" class="weather-value"></div>
+            </div>
         </div>
     </div>
 
@@ -179,6 +194,11 @@
             const results = await fetch(`
             http://localhost:5000/weather?city=${city}&state=${state}`)
             const data = await results.json()
+
+            if (results.status == 404) {
+                document.getElementById("no-exist").classList.remove("hidden")
+                return;
+            }
 
             document.getElementById("results").classList.remove("hidden");
             document.getElementById("location-display").textContent = `${city}, ${state}`;

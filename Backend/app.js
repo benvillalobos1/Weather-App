@@ -30,6 +30,12 @@ app.get("/weather", async (req, res) => {
 
     const loc = geoData.results.find(r => r.admin1 === state)
 
+    if (!loc) {
+        return res.status(404).json({
+            error: "Location not found in that state."
+        })
+    }
+
     const { latitude, longitude } = loc
 
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m`;
