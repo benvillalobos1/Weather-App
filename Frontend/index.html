@@ -95,6 +95,7 @@
         #location-display {
             color: white;
             font-size: 22px;
+            text-align: center;
             font-weight: 600;
             margin-bottom: 20px;
             letter-spacing: 0.5px;
@@ -188,6 +189,17 @@
         }
 
         async function getWeather() {
+            const noExist = document.getElementById("no-exist")
+            const resultsDiv = document.getElementById("results")
+
+            if (!noExist.classList.contains("hidden")) {
+                noExist.classList.add("hidden")
+            }
+
+            if (!resultsDiv.classList.contains("hidden")) {
+                resultsDiv.classList.add("hidden")
+            }
+
             const city = document.getElementById("city").value
             const state = document.getElementById("state").value
 
@@ -196,11 +208,11 @@
             const data = await results.json()
 
             if (results.status == 404) {
-                document.getElementById("no-exist").classList.remove("hidden")
+                noExist.classList.remove("hidden")
                 return;
             }
 
-            document.getElementById("results").classList.remove("hidden");
+            resultsDiv.classList.remove("hidden");
             document.getElementById("location-display").textContent = `${city}, ${state}`;
             
             const temp = getFahrenheit(data.temperature)
